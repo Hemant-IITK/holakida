@@ -26,20 +26,22 @@ const handlePatientAppointment = (req,res,db,bcrypt)=> {
           doctoremail: req.body.doctorInfo.Email,
           hash: hash
           }).then(idGenerated => {
-           let tempForBooking = 'http://localhost:3000/appointmentbooking/'+idGenerated+'/'+hash;
+           let tempForBooking = 'https://quickcure.azurewebsites.net/appointmentbooking/'+idGenerated+'/'+hash;
            mailOptionsForConformingBooking.html = "<a href = '"+tempForBooking+"'>Click here to confirm booking</a>";
            mailOptionsForConformingBooking.to = req.body.email;
            transporterForConformingBooking.sendMail(mailOptionsForConformingBooking,(err,info) => {
              if(err){
                console.log(err);
+               res.json({Response: 'not sent'})
              } else {
+              res.json({Response: 'Check Your Email'});
                console.log(info);
              }
           }
          )
        })
      })
-    res.json({Response: 'Check Your Email'});
+    
 }
 module.exports = {
     handlePatientAppointment: handlePatientAppointment
