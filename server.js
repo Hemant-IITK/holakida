@@ -83,7 +83,7 @@ const db = require('knex')({
 
   //app.post('/searchsymptoms',(req,res) => {SearchSymptoms.handleSearchSymptom(req,res,db)})
 
-	//app.get('/',(req,res) => res.json());
+	app.get('/',(req,res) => res.sendFile(__dirname+ '/index.html'));
   app.post('/symptom_check', function (req,res) {
     console.log(req.body,'jhvjv')
     symptom_checker.json_extract(req,res);
