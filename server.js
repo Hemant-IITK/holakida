@@ -39,7 +39,7 @@ const db = require('knex')({
     password : 'Utsav@123',
     database: 'information_project',
     port: 3306,
-    ssl: true,
+    ssl: true
   }});
   db.select('*').from('location').then(data => searchdata.location = data);
   db.select('*').from('feerange').then(data => searchdata.fee = data);
