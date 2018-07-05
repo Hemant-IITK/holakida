@@ -32,14 +32,15 @@
     symptoms:[]
   }
 const db = require('knex')({
+	client: 'mysql',
       connection: {
       server : 'quikcure.mysql.database.azure.com',
       user : 'serveradmin@quikcure',
       password : 'Utsav@123',
-      port: 3306,
-      database: 'information_project,
-	ssl: true
-    }
+	options: {
+	port: 3306,
+database: 'information_project',
+encrypt: true
 
   });
   db.select('*').from('location').then(data => searchdata.location = data);
