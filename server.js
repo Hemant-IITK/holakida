@@ -37,6 +37,7 @@ const db = require('knex')({
     host : 'quikcure.mysql.database.azure.com',
     user : 'serveradmin@quikcure',
     password : 'Utsav@123',
+    database: 'information_project',
     port: 3306,
     ssl: true,
   }});
