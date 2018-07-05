@@ -38,7 +38,8 @@ const db = require('knex')({
       user : 'serveradmin@quikcure',
       password : 'Utsav@123',
       database: 'information_project',
-	    port: 3306
+      port: 3306,
+      ssl: true
 
   }});
   db.select('*').from('location').then(data => searchdata.location = data);
