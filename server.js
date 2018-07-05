@@ -41,7 +41,7 @@ const db = require('knex')({
 	port: 3306,
 database: 'information_project',
 encrypt: true
-
+}
   });
   db.select('*').from('location').then(data => searchdata.location = data);
   db.select('*').from('feerange').then(data => searchdata.fee = data);
