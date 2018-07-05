@@ -37,8 +37,13 @@ const db = require('knex')({
       server : 'quikcure.mysql.database.azure.com',
       user : 'serveradmin@quikcure',
       password : 'Utsav@123',
-      database: 'information_project'
+    options: {
+        port: 1433,
+        database : 'information_project',
+        encrypt: true
     }
+    }
+
   });
   db.select('*').from('location').then(data => searchdata.location = data);
   db.select('*').from('feerange').then(data => searchdata.fee = data);
