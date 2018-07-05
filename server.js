@@ -83,7 +83,6 @@ const db = require('knex')({
   //app.post('/searchsymptoms',(req,res) => {SearchSymptoms.handleSearchSymptom(req,res,db)})
 
 	//app.get('/',(req,res) => res.json());
-  app.get('/',(req,res) => res.sendFile(__dirname + '/build/index.html'));
   app.post('/symptom_check', function (req,res) {
     console.log(req.body,'jhvjv')
     symptom_checker.json_extract(req,res);
@@ -99,7 +98,7 @@ const db = require('knex')({
        
     })})
   app.post('/checkkey',(req,res) => {CheckingKeyForgotPassword.handleCheckKeyForgotPassword(req,res,db,bcrypt)});     
-  app.get('/searchdata',(req,res) => { console.log('here is the data',searchdata);res.json('hello')}) 
+  app.get('/searchdata',(req,res) => { console.log('here is the data',searchdata);res.json(searchdata)}) 
   app.post('/symptomsearch',(req,res) => res.json(searchdata));
   app.get('/:rand/uploads/patients/:userid/:ProfilePic',(req,res) =>{ res.sendFile(__dirname+'/uploads/patients/'+req.params.userid+'/PatientsPic.jpg')})             
   app.post('/login',(req,res) => { Login.handleLogin(req,res,db,bcrypt)});      
