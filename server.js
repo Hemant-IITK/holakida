@@ -38,7 +38,7 @@ const db = require('knex')({
       user : 'serveradmin@quikcure',
       password : 'Utsav@123',
     options: {
-        port: 1433,
+        port: 3306,
         database : 'information_project',
         encrypt: true
     }

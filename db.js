@@ -3,12 +3,14 @@ const mysql = require('mysql');
 function MySQLConnect() {
 var config =
 {
-    host: 'localhost',
-    user: 'root',
-    password: 'Rama@1234',
-    database: 'test',
-    //port: 3306,
-    //ssl: true
+host : 'quikcure.mysql.database.azure.com',
+      user : 'serveradmin@quikcure',
+      password : 'Utsav@123',
+    
+        port: 3306,
+        database : 'information_project',
+        ssl: true
+    
 };
 
 this.pool = null;
