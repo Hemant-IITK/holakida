@@ -34,7 +34,7 @@
 const db = require('knex')({
   client : 'mysql',
   connection: {
-    host : 'quikcure.mysql.database.azure.com',
+    server : 'quikcure.mysql.database.azure.com',
     user : 'serveradmin@quikcure',
     password : 'Utsav@123',
     ssl: true,
