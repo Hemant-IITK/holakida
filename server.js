@@ -116,6 +116,7 @@ let transporterForSendingMessage = nodemailer.createTransport({
       if(err){
         res.json({response:'message received'});}
       else {
+	console.log(info);
         res.json({response:'something wrong'});
       }
   })});
