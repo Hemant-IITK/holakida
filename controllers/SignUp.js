@@ -26,18 +26,20 @@ const handleSignUp = (req,res,db,bcrypt) => {
               .then(data => {
                 console.log(data,'this is data produced')
                 mailOptionsForSignup.to = req.body.email;
-                let tempForSignup = "http://localhost:3000/"+ data + '/' + hash;
-                  mailOptionsForSignup.html ='<a href ="'+ tempForSignup +'">Click here to Confirm Your Account </a>'; 
+                let tempForSignup = "https://quickcure.azurewebsites.net/confirm/"+ data + '/' + hash;
+                  mailOptionsForSignup.html ="<form method='GET' action='"+tempForSignup+"'><button type='submit'>Click here to Confirm Your Account</button></form>"; 
                   transporterForSignup.sendMail(mailOptionsForSignup,(err,info)=>{
-                  if(err)
+                  if(err){
                     console.log('unable to Send Message :',err);
+                    res.json({response:'Account Cannot Be Created'});}
                   else {
                     console.log('your message has been successfully end :',info );
+                    res.json({response:'Check Your email to verify Your Account'});
                   }
                 });
               }); 
             })
-            res.json({response:'Check Your email to verify Your Account'});
+            
           }
       })    
 }

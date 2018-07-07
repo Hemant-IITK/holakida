@@ -1,5 +1,5 @@
   const express = require('express');
-  const bodyParser = require('body-parser')
+  const bodyParser = require('body-parser');
   const cors = require('cors');
   const bcrypt = require('bcrypt-nodejs');
   const path = require('path');
@@ -22,7 +22,9 @@
   
   const app = express();
   app.use(cors());
-  app.use(express.static(__dirname ));
+  app.use(express.static(__dirname + '/build'));
+  app.use(express.static(__dirname + '/images/imagesm'));
+  app.use(express.static(__dirname + '/images/imagesf'));
   app.use(bodyParser.json());
 
   const  searchdata = {
@@ -30,7 +32,7 @@
     fee:[],
     speciality:[],
     symptoms:[]
-  }
+  };
 const db = require('knex')({
   client : 'mysql',
   connection: {
@@ -54,7 +56,7 @@ const db = require('knex')({
     filename: (req, file, cb) => {
       const newFilenames =`${req.body.description}${path.extname(file.originalname)}`;
       currentextension = path.extname(file.originalname);
-      console.log(req.body,path.extname(file.originalname))
+      console.log(req.body,path.extname(file.originalname));
       cb(null, newFilenames);
     },
   });
@@ -62,7 +64,7 @@ const db = require('knex')({
 
   const storageimageuserp = multer.diskStorage({
     destination: (req, file, cb) => {
-      console.log('profile updates')
+      console.log('profile updates');
       cb(null, './uploads/patients/'+req.params.id);
     },
     filename: (req, file, cb) => {
@@ -74,7 +76,7 @@ const db = require('knex')({
     fileFilter: (req,file,callback) =>{
         const ext = path.extname(file.originalname);
         if(ext !== '.jpg'){
-        return callback(new Error('Only Jpg images can be uploaded'))
+        return callback(new Error('Only Jpg images can be uploaded'));
     }
     callback(null,true);
     }
@@ -83,9 +85,8 @@ const db = require('knex')({
 
   //app.post('/searchsymptoms',(req,res) => {SearchSymptoms.handleSearchSymptom(req,res,db)})
 
-	app.get('/',(req,res) => res.sendFile(__dirname+ '/build/index.html'));
+	
   app.post('/symptom_check', function (req,res) {
-    console.log(req.body,'jhvjv')
     symptom_checker.json_extract(req,res);
   });
   app.get('/respond/uploads/patients/:id/:FILENAME/:hash(*)',(req,res) => {
@@ -97,23 +98,24 @@ const db = require('knex')({
         res.json({Response:'No such File Exist'});
       }
        
-    })})
+    })});
   app.post('/checkkey',(req,res) => {CheckingKeyForgotPassword.handleCheckKeyForgotPassword(req,res,db,bcrypt)});     
-  app.get('/searchdata',(req,res) => { console.log('here is the data',searchdata);res.json(searchdata)}) 
+  app.get('/searchdata',(req,res) => {res.json(searchdata)}) ;
   app.post('/symptomsearch',(req,res) => res.json(searchdata));
-  app.get('/:rand/uploads/patients/:userid/:ProfilePic',(req,res) =>{ res.sendFile(__dirname+'/uploads/patients/'+req.params.userid+'/PatientsPic.jpg')})             
+  app.get('/:rand/uploads/patients/:userid/:ProfilePic',(req,res) =>{ res.sendFile(__dirname+'/uploads/patients/'+req.params.userid+'/PatientsPic.jpg')})  ;           
   app.post('/login',(req,res) => { Login.handleLogin(req,res,db,bcrypt)});      
   app.post('/signup',(req,res) => { SignUp.handleSignUp(req,res,db,bcrypt) });  
   app.post('/login/matchinghash',(req,res) => {MatchHash.handleMatchHash(req,res,db)});  
   app.post('/searchdoctor',(req,res) => { SearchDoctor.handleSearchDoctor(req,res,db)});
   app.post('/bookingappointment',(req,res) => {  PatientAppointment.handlePatientAppointment(req,res,db,bcrypt)});
-  app.post('/uploads/file/:id/:hash(*)',uploadFile.single("selectedFile"),(req,res) => {UploadingFile.handleUploadingFile(req,res,currentextension,db)})
+  app.post('/uploads/file/:id/:hash(*)',uploadFile.single("selectedFile"),(req,res) => {UploadingFile.handleUploadingFile(req,res,currentextension,db)});
   app.get('/forgotpassword/resetingrequest/:email(*)',(req,res) => {ForgotPassword.handleForgotPassword(req,res,random,db)});
   app.post('/uploading/:id/:hash(*)',uploadp.single("selectedFile"),(req, res) => {UploadingProfilePic.handleProfilePic(req,res,db)});
   app.get('/signout/:id/:hash(*)',(req,res) => { Logout.handleLogout(req,res,db) });
-  app.get('/image/:type/:id',(req,res)=> {res.sendFile(__dirname+'/images/'+req.params.type+'/'+req.params.id)})
+  app.get('/images/:type/:id',(req,res)=> {res.sendFile(__dirname+'/images/'+req.params.type+'/'+req.params.id)})
   app.get('/appointmentbooking/:idofuser/:hash(*)',(req,res) => {ConfirmingAppointment.handleConfirmAppointment(req,res,db)});
-  app.get('/:Id/:hash(*)',(req,res) => {ConfirmingSignUp.handleConfirmSignUp(req,res,db,mkdirp)});
+  app.get('/confirm/:Id/:hash(*)',(req,res) => {ConfirmingSignUp.handleConfirmSignUp(req,res,db,mkdirp)});//
+  app.get('/',(req,res) => res.sendFile(__dirname+ '/build/index.html'));
   app.listen(process.env.PORT || 3306,() => {
-    console.log('App is Running On Port 3000')
+    console.log('App is Running On Port 3000');
   });    

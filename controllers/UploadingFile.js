@@ -8,7 +8,7 @@ const handleUploadingFile = (req,res,currentextention,db) => {
                 if(data2.length > 0){
                     res.json({Response: 'File with same name already exists'})
                 } else {
-                    db('patient_'+id).insert({FILES : description,path : 'http://localhost:3000/respond/uploads/patients/'+id+'/'+ description+''+currentextention+'/'+data[0].upassword+'',ext: currentextention}).then(data => console.log('hols',data))
+                    db('patient_'+id).insert({FILES : description,path : 'https://quickcure.azurewebsites.net/respond/uploads/patients/'+id+'/'+ description+''+currentextention+'/'+data[0].upassword+'',ext: currentextention}).then(data => console.log('hols',data))
                     res.json({Response: 'File Uploaded'});
                 }
             })
