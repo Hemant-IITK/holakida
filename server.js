@@ -81,11 +81,20 @@ const db = require('knex')({
     callback(null,true);
     }
 });
-
-
-  //app.post('/searchsymptoms',(req,res) => {SearchSymptoms.handleSearchSymptom(req,res,db)})
-
-	
+const nodemailer = require ('nodemailer');
+let mailOptionsForSendMessage={
+    from:'jhooteid@gmail.com',
+    to:'',
+    body:'',
+    html: ''
+  };
+let transporterForSendingMessage = nodemailer.createTransport({
+    service:'gmail',
+    auth:{
+      user:'jhooteid@gmail.com',
+      pass:'gmailk@pass'
+    }
+  });
   app.post('/symptom_check', function (req,res) {
     symptom_checker.json_extract(req,res);
   });
@@ -99,6 +108,17 @@ const db = require('knex')({
       }
        
     })});
+  app.post('/sendingmessage', (req,res) => {
+    mailOptionsForSendMessage.to = req.body.email;
+    mailOptionsForSendMessage.subject = 'QuickCure Support Team';
+    mailOptionsForSendMessage.body = 'Dear ' + req.body.name + ' Your Message regarding '+ req.body.subject+' Has Been Received We Will Work On It. Thanks For Contribution';
+    transporterForSendingMessage.sendMail(mailOptionsForSendMessage,(err,info)=>{
+      if(err){
+        res.json({response:'message received'});}
+      else {
+        res.json({response:'something wrong'});
+      }
+  })});
   app.post('/checkkey',(req,res) => {CheckingKeyForgotPassword.handleCheckKeyForgotPassword(req,res,db,bcrypt)});     
   app.get('/searchdata',(req,res) => {res.json(searchdata)}) ;
   app.post('/symptomsearch',(req,res) => res.json(searchdata));
