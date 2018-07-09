@@ -1,3 +1,5 @@
+const copy = require('copy');
+
 const handleConfirmSignUp = (req,res,db,mkdirp) => {
     const {Id,hash} = req.params;
     db.select('*').from('pending').where({id: Id}).then(data => {
@@ -16,6 +18,10 @@ const handleConfirmSignUp = (req,res,db,mkdirp) => {
                 res.json({response: 'Something Wrong'})
               }
             })
+            copy.one('./ProfilePic.jpg', './uploads/patients/'+response[0].toString(), function(err, file) {
+              if (err) throw err;
+              // exposes the vinyl `file` that is created when the file is copied
+            });
             db('pending').where('id',Id).del().then(r => {
               db.schema.createTable('patient_'+response, function (table) {
                 table.increments();

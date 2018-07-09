@@ -36,16 +36,28 @@ function symptom_check() {
 			if(len > 7) {
 				res.send([{"message":"null"}]);
 			}
-			if(len > 5 && len <= 7) {
+			if(len > 5 && len == 7) {
 				len = 5;
+				while (len > 0) {
+				array[i] = req.body.arr[i+2].id;
+				len--;
+				i++;
 			}
-			if (len > 5) {
+			}
+			else if(len > 5 && len == 6) {
 				len = 5;
+				while (len > 0) {
+				array[i] = req.body.arr[i+1].id;
+				len--;
+				i++;
 			}
+			}
+			else{
 			while (len > 0) {
 				array[i] = req.body.arr[i].id;
 				len--;
 				i++;
+			}
 			}
 			if (array.length == 5) {
 				var final_result = [];
