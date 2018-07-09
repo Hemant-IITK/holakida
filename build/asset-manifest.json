@@ -1,11 +1,12 @@
 {
-  "main.css": "static/css/main.50f0f665.css",
-  "main.css.map": "static/css/main.50f0f665.css.map",
-  "main.js": "static/js/main.329fe564.js",
-  "main.js.map": "static/js/main.329fe564.js.map",
+  "main.css": "static/css/main.d7aa411c.css",
+  "main.css.map": "static/css/main.d7aa411c.css.map",
+  "main.js": "static/js/main.e69f3a62.js",
+  "main.js.map": "static/js/main.e69f3a62.js.map",
   "static/media/check.jpg": "static/media/check.e6cc591b.jpg",
   "static/media/doctor_cover.png": "static/media/doctor_cover.c82df2da.png",
-  "static/media/doctor_coverPhone.jpg": "static/media/doctor_coverPhone.af43f3e2.jpg",
+  "static/media/doctor_coverTab.png": "static/media/doctor_coverTab.b63d6a63.png",
+  "static/media/handycheera.otf": "static/media/handycheera.5bc504c3.otf",
   "static/media/hemant.jpg": "static/media/hemant.81d010ed.jpg",
   "static/media/uts2.jpg": "static/media/uts2.1c5b6e1f.jpg"
 }

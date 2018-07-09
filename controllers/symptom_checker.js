@@ -33,6 +33,12 @@ function symptom_check() {
 			var array = [];
 			var len = req.body.arr.length;
 			var i = 0;
+			if(len > 7) {
+				res.send([{"message":"null"}]);
+			}
+			if(len > 5 && len <= 7) {
+				len = 5;
+			}
 			if (len > 5) {
 				len = 5;
 			}
