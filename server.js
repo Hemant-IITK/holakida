@@ -2,6 +2,7 @@
   const bodyParser = require('body-parser');
   const cors = require('cors');
   const bcrypt = require('bcrypt-nodejs');
+  const nodemailer = require ('nodemailer');
   const path = require('path');
   const mkdirp = require('mkdirp');
   let multer = require('multer');
@@ -19,7 +20,6 @@
   const ConfirmingAppointment = require('./controllers/ConfirmingAppointment');
   const ConfirmingSignUp = require('./controllers/ConfirmingSignup');
   const MatchHash = require('./controllers/MatchHash');
-  
   const app = express();
   app.use(cors());
   app.use(express.static(__dirname + '/build'));
@@ -81,7 +81,7 @@ const db = require('knex')({
     callback(null,true);
     }
 });
-const nodemailer = require ('nodemailer');
+
 let mailOptionsForSendMessage={
     from:'jhooteid@gmail.com',
     to:'',
@@ -111,13 +111,13 @@ let transporterForSendingMessage = nodemailer.createTransport({
   app.post('/sendingmessage', (req,res) => {
     mailOptionsForSendMessage.to = req.body.email;
     mailOptionsForSendMessage.subject = 'QuickCure Support Team';
-    mailOptionsForSendMessage.body = 'Dear ' + req.body.name + ' Your Message regarding '+ req.body.subject+' Has Been Received We Will Work On It. Thanks For Contribution';
+    mailOptionsForSendMessage.html = '<p>Dear ' + req.body.name + ' Your Message regarding '+ req.body.subject+' Has Been Received We Will Work On It. Thanks For Contribution</p>';
     transporterForSendingMessage.sendMail(mailOptionsForSendMessage,(err,info)=>{
       if(err){
-        res.json({response:'message received'});}
-      else {
-	console.log(info);
         res.json({response:'something wrong'});
+        }
+      else {
+        res.json({response:'message received'});
       }
   })});
   app.post('/checkkey',(req,res) => {CheckingKeyForgotPassword.handleCheckKeyForgotPassword(req,res,db,bcrypt)});     
