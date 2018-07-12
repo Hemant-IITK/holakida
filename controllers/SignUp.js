@@ -24,7 +24,6 @@ const handleSignUp = (req,res,db,bcrypt) => {
                   ,password: hash,name: req.body.name,
                     mobile : req.body.mobile.toString()})
               .then(data => {
-                console.log(data,'this is data produced')
                 mailOptionsForSignup.to = req.body.email;
                 let tempForSignup = "https://quickcure.azurewebsites.net/confirm/"+ data + '/' + hash;
                   mailOptionsForSignup.html ="<a href='"+tempForSignup+"'>Click here to Confirm Your Account</a>"; 
