@@ -1,4 +1,4 @@
-const copy = require('copy');
+const fs = require('fs-extra');
 
 const handleConfirmSignUp = (req,res,db,mkdirp) => {
     const {Id,hash} = req.params;
@@ -18,12 +18,13 @@ const handleConfirmSignUp = (req,res,db,mkdirp) => {
                 res.json({response: 'Something Wrong'})
               }
             })
-            copy.one('../ProfilePic.jpg', '../uploads/patients/'+response.toString(), function(err, file) {
+            fs.copy('../ProfilePic.jpg', '../uploads/patients/'+response[0].toString(), err => {
               if (err){
-                console.log(err);
-              };
-              // exposes the vinyl `file` that is created when the file is copied
-            });
+               console.error(err)
+              }else{
+              console.log('success!')
+              }
+            })
             db('pending').where('id',Id).del().then(r => {
               db.schema.createTable('patient_'+response, function (table) {
                 table.increments();
