@@ -20,7 +20,7 @@ const handleConfirmSignUp = (req,res,db,mkdirp) => {
             })
             copy.one('ProfilePic.jpg', '../uploads/patients/'+response[0].toString(), function(err, file) {
               if (err){
-                consoel.log(err)
+                console.log(err)
               }else {
                 console.log('success');
               }
