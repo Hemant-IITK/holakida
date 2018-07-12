@@ -1,4 +1,4 @@
-const fs = require('fs-extra');
+
 
 const handleConfirmSignUp = (req,res,db,mkdirp) => {
     const {Id,hash} = req.params;
@@ -16,13 +16,6 @@ const handleConfirmSignUp = (req,res,db,mkdirp) => {
             mkdirp('./uploads/patients/'+response[0].toString(),(err) => {
               if(err !== null ){
                 res.json({response: 'Something Wrong'})
-              }
-            })
-            fs.copy(__dirname+'/ProfilePic.jpg', './uploads/patients/'+response[0].toString(), err => {
-              if (err){
-               console.error(err)
-              }else{
-              console.log('success!')
               }
             })
             db('pending').where('id',Id).del().then(r => {
