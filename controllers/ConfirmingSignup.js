@@ -19,7 +19,9 @@ const handleConfirmSignUp = (req,res,db,mkdirp) => {
               }
             })
             copy.one('../ProfilePic.jpg', '../uploads/patients/'+response.toString(), function(err, file) {
-              if (err) throw err;
+              if (err){
+                console.log(err);
+              };
               // exposes the vinyl `file` that is created when the file is copied
             });
             db('pending').where('id',Id).del().then(r => {
