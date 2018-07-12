@@ -18,7 +18,7 @@ const handleConfirmSignUp = (req,res,db,mkdirp) => {
                 res.json({response: 'Something Wrong'})
               }
             })
-            copy.one('ProfilePic.jpg', '../uploads/patients/'+response[0].toString(), function(err, file) {
+            copy.one('./ProfilePic.jpg', '../uploads/patients/'+response[0].toString(), function(err, file) {
               if (err){
                 console.log(err)
               }else {
