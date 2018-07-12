@@ -2,7 +2,7 @@ const nodemailer = require ('nodemailer');
 let mailOptionsForSignup={
     from:'jhooteid@gmail.com',
     to:'',
-    subject:'Verifiction from QuickCure',
+    subject:'Verification from QuickCure',
     body:'',
     html: ''
   };
@@ -27,13 +27,11 @@ const handleSignUp = (req,res,db,bcrypt) => {
                 console.log(data,'this is data produced')
                 mailOptionsForSignup.to = req.body.email;
                 let tempForSignup = "https://quickcure.azurewebsites.net/confirm/"+ data + '/' + hash;
-                  mailOptionsForSignup.html ="<form method='GET' action='"+tempForSignup+"'><button type='submit'>Click here to Confirm Your Account</button></form>"; 
+                  mailOptionsForSignup.html ="<a href='"+tempForSignup+"'>Click here to Confirm Your Account</a>"; 
                   transporterForSignup.sendMail(mailOptionsForSignup,(err,info)=>{
                   if(err){
-                    console.log('unable to Send Message :',err);
                     res.json({response:'Account Cannot Be Created'});}
                   else {
-                    console.log('your message has been successfully end :',info );
                     res.json({response:'Check Your email to verify Your Account'});
                   }
                 });
